@@ -74,8 +74,8 @@ func (t *ABstore) Invoke(ctx contractapi.TransactionContextInterface, sell, buy,
 	fee := int(float64(X) * 0.03)
 	
 	// Perform the execution
-	sellVal = sellVal-X-fee
-	buyVal += X
+	sellVal += X
+	buyVal = buyVal-X-fee
 	companyVal += fee
 	
 	fmt.Printf("sellVal = %d, buyVal = %d, companyVal = %d\n", sellVal, buyVal, companyVal)
