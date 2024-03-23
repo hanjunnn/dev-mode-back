@@ -9,13 +9,13 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }))
 
 app.get('/init', function (req, res) {
-   let a = req.query.a;
-   let aval = req.query.aval;
-   let b = req.query.b;
-   let bval = req.query.bval;
-   let c = req.query.c;
-   let cval = req.query.cval;
-   let args = [a, aval, b, bval, c, cval];
+   let buy = req.query.buy;
+   let buyval = req.query.buyval;
+   let sell = req.query.sell;
+   let sellval = req.query.sellval;
+   let company = req.query.company;
+   let companyval = req.query.companyval;
+   let args = [buy, buyval, sell, sellval, company, companyval];
    sdk.send(false, 'Init', args, res);
 });
 
