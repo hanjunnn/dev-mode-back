@@ -35,4 +35,24 @@ app.factory('appFactory', function($http){
     }
     return factory;
  });
- 
+
+ function isNumberKey(evt) {
+    var charCode=(evt.which) ? evt.which : event.keyCode;
+    if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+        return false;
+    }
+    return true;
+ }
+
+ function CheckPrice() {
+    var inputElement = document.getElementById("amountInput");
+    var resultElement = document.getElementById("result");
+
+    var inputValue = parseFloat(inputElement.value);
+    if(!isNaN(inputValue)) {
+        var increasedValue = inputValue * 1.03;
+        resultElement.textContent = Math.floor(increasedValue);
+    } else {
+        alert("올바른 숫자를 입력하시오.")
+    }
+ }

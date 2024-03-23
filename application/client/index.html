@@ -10,8 +10,9 @@
 
    <style type="text/css">
      header{
-       background-color: lightgray;
-       font-size:20px;
+       background-color: rgba(201, 18, 18, 0.637);
+       font-size:30px;
+       font-weight: bold;
        padding:20px;
      }
      header, .form-group{
@@ -25,29 +26,63 @@
        margin-right:3%;
      }
      .form-control{
-       margin: 8px;
+       margin: 10px;
+       width: 400px;
      }
      label{
        font-size:20px;
+     }
+     .n1{
+      padding-right: 350px ;
+      font-size: 15px;
+      font-weight: bold;
+     }
+     .n2 {
+      margin-bottom: 30px;
+     }
+     #initAB{
+      margin: 20px; 
+      width: 100px;
+      background-color: rgba(201, 18, 18, 0.637);
+      border: none;
+      font-weight: bold;
+     }
+     #initAB:active {
+      background-color: rgb(185, 22, 22);
+      position: relative;
+      left: 1px;
+      top: 1px;
+     }
+     .n3 {
+      color: gray;
      }
    </style>
  </head>
  <body ng-app="application" ng-controller="AppCtrl">
     <header>
-      <div id="left_header">Hyperledger Fabric AB Store Application</div>
+      <div id="left_header">Groudon Pay</div>
     </header>
+    <center>
     <div id="body">
       <div class="form-group">
-        <label>Init</label>
+        <label class="n2">판매정보</label>
         <h5 style="color:green;margin-bottom:2%" id="success_init">{{init_ab}}</h5>
         <br>
-        A: <input class="form-control" type="text" placeholder="Ex: Hyper" ng-model="abstore.a">
-        A Value: <input class="form-control" type="text" placeholder="Ex: 100" ng-model="abstore.aval">
-        B: <input class="form-control" type="text" placeholder="Ex: Ledger" ng-model="abstore.b">
-        B Value: <input class="form-control" type="text" placeholder="Ex: 0" ng-model="abstore.bval">
-        C: <input class="form-control" type="text" placeholder="Ex: Ledger" ng-model="abstore.c">
-        C Value: <input class="form-control" type="text" placeholder="Ex: 0" ng-model="abstore.cval">
-        <input id="initAB" type="submit" value="Create" class="btn btn-primary" ng-click="initAB()">
+        <span class="n1">판매자: </span><input class="form-control" type="text" placeholder="판매자 이름 입력" ng-model="abstore.sell" required>
+        <span class="n1">구매자: </span><input class="form-control" type="text" placeholder="구매자 이름 입력" ng-model="abstore.buy" required>
+        <span class="n1">상품명: </span><input class="form-control" type="text" placeholder="정확한 상품명 입력" ng-model="abstore.itemName" required>
+        <span class="n1">가&nbsp;&nbsp;격: </span><input class="form-control" type="text" placeholder="배송비 포함" ng-model="abstore.bval" required id="amountInput" onkeypress="return isNumberKey(event)">
+        <button id="b1" style="position: relative; bottom:43px; left: 240px; width: 60px; height: 32px; background-color: rgba(201, 18, 18, 0.637); border: none; color: white; border-radius: 3px; font-weight: bold;" onclick="CheckPrice()">확인</button><br>
+        <span id="result" stdyle="font-size: 17px;">0</span>원<br><br>
+        <span class="n3">안전 거래 수수료 3%가 자동으로 추가됩니다.</span><br>
+        <input id="initAB" type="submit" value="결제" class="btn btn-primary" ng-click="initAB()">
+      </div>
+      <hr>
+      <div>
+        <h4>val 설정</h4><br>
+        <span class="n1">SellVal: </span><input class="form-control" type="text" placeholder="판매자" ng-model="abstore.sellval" required>
+        <span class="n1">BuyVal: </span><input class="form-control" type="text" placeholder="구매자" ng-model="abstore.buyval" required>
+        <span class="n1">CompanyVal: </span><input class="form-control" type="text" placeholder="회사" ng-model="abstore.companyval" required><br>
       </div>
       <hr>
       <div class="form-group">
@@ -57,6 +92,7 @@
         <input id="queryAB" type="submit" value="Search" class="btn btn-primary" ng-click="queryAB()"></p>
       </div>
     </div>
+  </center>
   </body>
   <script type="text/javascript" src="app.js"> </script>
  </html>
