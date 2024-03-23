@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
  <head>
-   <title>Hyperledger Fabric AB Store Application</title>
+   <title>Groudon Pay</title>
 
    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
@@ -56,6 +56,10 @@
      .n3 {
       color: gray;
      }
+     label {
+        font-size: 17px;
+        padding-right: 310px;
+     }
    </style>
  </head>
  <body ng-app="application" ng-controller="AppCtrl">
@@ -64,36 +68,79 @@
     </header>
     <center>
     <div id="body">
-      <div class="form-group">
-        <label class="n2">판매정보</label>
-        <h5 style="color:green;margin-bottom:2%" id="success_init">{{init_ab}}</h5>
-        <br>
-        <span class="n1">판매자: </span><input class="form-control" type="text" placeholder="판매자 이름 입력" ng-model="abstore.sell" required>
-        <span class="n1">구매자: </span><input class="form-control" type="text" placeholder="구매자 이름 입력" ng-model="abstore.buy" required>
-        <span class="n1">상품명: </span><input class="form-control" type="text" placeholder="정확한 상품명 입력" ng-model="abstore.itemName" required>
-        <span class="n1">가&nbsp;&nbsp;격: </span><input class="form-control" type="text" placeholder="배송비 포함" ng-model="abstore.bval" required id="amountInput" onkeypress="return isNumberKey(event)">
-        <button id="b1" style="position: relative; bottom:43px; left: 240px; width: 60px; height: 32px; background-color: rgba(201, 18, 18, 0.637); border: none; color: white; border-radius: 3px; font-weight: bold;" onclick="CheckPrice()">확인</button><br>
-        <span id="result" stdyle="font-size: 17px;">0</span>원<br><br>
-        <span class="n3">안전 거래 수수료 3%가 자동으로 추가됩니다.</span><br>
-        <input id="initAB" type="submit" value="결제" class="btn btn-primary" ng-click="initAB()">
-      </div>
-      <hr>
-      <div>
-        <h4>val 설정</h4><br>
-        <span class="n1">SellVal: </span><input class="form-control" type="text" placeholder="판매자" ng-model="abstore.sellval" required>
-        <span class="n1">BuyVal: </span><input class="form-control" type="text" placeholder="구매자" ng-model="abstore.buyval" required>
-        <span class="n1">CompanyVal: </span><input class="form-control" type="text" placeholder="회사" ng-model="abstore.companyval" required><br>
-      </div>
-      <hr>
-      <div class="form-group">
-        <h5 style="color:green;margin-bottom:2%" id="success_qurey">{{query_ab}}</h5>
-        <label>Query</label>
-        <p><input class="form-control" type="text" placeholder="Ex: A" ng-model="walletid">
-        <input id="queryAB" type="submit" value="Search" class="btn btn-primary" ng-click="queryAB()"></p>
-      </div>
-    </div>
-  </center>
-  </body>
+        <div class="container">
+            <form id="initForm" class="mt-3">
+                <h3>정보 입력</h3><br>
+                <div class="form-group">
+                    <label for="sell">판매자 이름:</label>
+                    <input type="text" class="form-control" id="sell" name="sell">
+                </div>
+                <div class="form-group">
+                    <label for="sellVal">판매자 지갑:</label>
+                    <input type="text" class="form-control" id="sellVal" name="sellVal">
+                </div>
+                <div class="form-group">
+                    <label for="buy">구매자 이름: </label>
+                    <input type="text" class="form-control" id="buy" name="buy">
+                </div>
+                <div class="form-group">
+                    <label for="buyVal">구매자 지갑:</label>
+                    <input type="text" class="form-control" id="buyVal" name="buyVal">
+                </div>
+                <div class="form-group">
+                    <label for="company">중계자 이름:</label>
+                    <input type="text" class="form-control" id="company" name="company">
+                </div>
+                <div class="form-group">
+                    <label for="companyVal">중계자 지갑:</label>
+                    <input type="text" class="form-control" id="companyVal" name="companyVal">
+                </div>
+                <button type="submit" class="btn btn-primary" id="initAB">입력</button>
+            </form>
+            <br><hr><br>
+    
+            <form id="invokeForm" class="mt-5">
+                <h3>결제</h3><br>
+                <div class="form-group">
+                    <label for="sell">판매자 이름:</label>
+                    <input type="text" class="form-control" id="sell" name="sell">
+                </div>
+                <div class="form-group">
+                    <label for="buy">구매자 이름:</label>
+                    <input type="text" class="form-control" id="buy" name="buy">
+                </div>
+                <div class="form-group">
+                    <label for="company">중계자 이름:</label>
+                    <input type="text" class="form-control" id="company" name="company">
+                </div>
+                <div class="form-group">
+                    <label for="itemName">구매 상품명:</label>
+                    <input type="text" class="form-control" id="itemName" name="itemName">
+                </div>
+                <div class="form-group">
+                    <label for="X">상품 구매가:</label>
+                    <input type="text" class="form-control" id="X" name="X" onkeypress="return isNumberKey(event)">
+                    <button id="b1" style="position: relative; bottom:43px; left: 240px; width: 60px; height: 32px; background-color: rgba(201, 18, 18, 0.637); border: none; color: white; border-radius: 3px; font-weight: bold;" onclick="CheckPrice()">확인</button><br>
+                    <span id="result" stdyle="font-size: 17px;">0</span>원<br><br>
+                    <span class="n3">안전 거래 수수료 3%가 자동으로 추가됩니다.</span><br>
+                </div>
+                <button type="submit" class="btn btn-primary" id="initAB">결제</button>
+            </form>
+            <br><hr><br>
+            <form id="queryForm" class="mt-5">
+                <h3>조회</h3><br>
+                <div class="form-group">
+                    <label for="name">조회 대상자:</label>
+                    <input type="text" class="form-control" id="name" name="name">
+                </div>
+                <button type="submit" class="btn btn-primary" id="initAB">조회</button>
+            </form>
+    
+            <div id="response" class="mt-5">
+                <!-- Response will be displayed here -->
+            </div>
+        </div>
+        </center>
   <script type="text/javascript" src="app.js"> </script>
  </html>
  
